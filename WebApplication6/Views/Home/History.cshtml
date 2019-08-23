@@ -1,0 +1,74 @@
+﻿@using Microsoft.AspNet.Identity
+@using WebApplication6.Models
+@model ChatModel
+@*<div id="Users">
+		<p><b>В чате онлайн: @Model.Users.Count</b></p>
+		@foreach (ChatUser user in Model.Users)
+		{
+			<p>@user.Name</p>
+		}
+	</div>*@
+<style>
+	div.panel-body {
+		overflow: scroll  ;
+		background: url('http://subtlepatterns.com/patterns/geometry2.png');
+	}
+</style>
+<div class="chat-panel panel panel-default" style="margin-top:10px;">
+	<div class="panel-heading" style="height:auto;" >
+		<h2>ChatBox</h2>
+		<i class="fa fa-paper-plane fa-fw"></i>
+	</div>
+
+	<div id="Messages">
+		<div class="panel-body" id="chat" style="height:400px;">
+			@foreach (ChatMessage msg in Model.Messages)
+			{
+
+				if ((msg.User != null) && (msg.User.Name == User.Identity.GetUserName()))
+				{
+					<p id="discussion" style="color:blue;text-align:right;">
+						<strong>
+							<img src="https://www.phplivesupport.com/pics/icons/avatars/public/avatar_71.png">
+							<b>
+								@(msg.User.Name + ":")<br>
+								@msg.Date<br />
+								@msg.Text<br />
+							</b>
+						</strong>
+					</p>
+				}
+				else if ((msg.User != null) && (msg.User.Name != User.Identity.GetUserName()))
+				{
+						<p id="discussion">
+							<strong>
+								<img src="https://sun9-22.userapi.com/c834204/v834204165/43584/Q47LR_ymL3M.jpg?ava=1">
+								<b>
+									@(msg.User.Name + ":")<br />
+									@msg.Date<br />
+									@msg.Text<br />
+								</b>
+							</strong>
+						</p>
+					
+					@*	<p id="discussion">
+							<strong>
+								<img src="https://www.phplivesupport.com/pics/icons/avatars/public/avatar_7.png">
+								<b>
+									@(msg.User.Name + ":")<br />
+									@msg.Date<br />
+									@msg.Text<br />
+								</b>
+							</strong>
+						</p>*@
+					
+				}
+				else
+				{
+					<p style="text-align:center;" class="serverMes"><b>@msg.Text</b><br /></p>
+				}
+
+			}
+		</div>
+	</div>
+</div>

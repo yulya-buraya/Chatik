@@ -1,0 +1,24 @@
+﻿@using WebApplication6.Models
+@model ChatModel
+<div id="RefreshArea">
+	@{
+		Html.RenderPartial("History", Model);
+	}
+</div>
+
+@Ajax.ActionLink("ActionLink", "Index", new { user = "", logOn = "", logOff = "", chatMessage = "" },
+new AjaxOptions { UpdateTargetId = "RefreshArea", OnSuccess = "ChatOnSuccess", OnFailure = "ChatOnFailure" },
+new { @id = "ActionLink", @style = "visibility:hidden;" })
+
+		<div class="panel-footer" style="margin-top:-38px;" > 
+			<div class="input-group" >
+				<textarea id="txtMessage"  name="message" class="form-control input-sm" placeholder="Type your message here..." ></textarea>
+				<span class="input-group-btn">
+					<input type="button" class="btn btn-warning btn-sm" id="btnMessage" value="Отправить">
+				</span>
+			</div>
+		</div>
+
+
+
+	

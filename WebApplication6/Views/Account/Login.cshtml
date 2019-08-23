@@ -1,0 +1,72 @@
+﻿@using WebApplication6.Models
+@model LoginViewModel
+@{
+	ViewBag.Title = "Выполнить вход";
+}
+
+
+<div class="row" style="margin-left:360px; margin-top:100px">
+	<div class="col-md-8" >
+		<section id="form">
+			@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+			{
+				<h2 style="margin-left:100px">Вход</h2>
+				<div class="form-group" style=" align-items:center">
+
+					<br />
+					@*@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })*@
+					<div class="col-md-10">
+						@Html.TextBoxFor(m => m.Email, new { @class = "form-control", @ID = "TextBox1", @placeholder = "Email" })
+
+					</div>
+				</div>
+				<div class="form-group" style=" align-items:center">
+					@*@Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })*@
+					<div class="col-md-10">
+						@Html.PasswordFor(m => m.Password, new { @class = "form-control", @ID = "TextBox2", @placeholder = "Пароль" }
+)
+
+						<p style="margin-top:20px; margin-left:25px;">
+							@Html.ActionLink("Регистрация нового пользователя", "Register")
+						</p>
+					</div>
+				</div>
+				@*<div class="form-group">
+				<div class="col-md-offset-2 col-md-10">
+					<div class="checkbox">
+						@Html.CheckBoxFor(m => m.RememberMe)
+						@Html.LabelFor(m => m.RememberMe)
+					</div>
+				</div>
+			</div>*@
+
+				<div class="form-group" style=" align-items:center">
+					<div class="col-md-offset-2 col-md-10" style="margin-left:70px;">
+						<input type="submit" value="Выполнить вход" class="btn btn-default" ID="Button1" />
+					</div>
+				</div>
+
+				@Html.AntiForgeryToken()
+
+				@*<h4>Используйте локальную учетную запись для входа.</h4>*@
+				//<hr />
+				@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })<br />
+				@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger " })<br />
+				@Html.ValidationSummary(true, "", new { @class = "text-danger" })<br />
+				@* Включите, когда будет включено подтверждение учетной записи для функции сброса пароля
+			<p>
+				@Html.ActionLink("Забыли пароль?", "ForgotPassword")
+			</p>*@
+			}
+		</section>
+	</div>
+	@*<div class="col-md-4">
+			<section id="socialLoginForm">
+				@Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+			</section>
+		</div>*@
+</div>
+
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+}
